@@ -31,9 +31,9 @@ OPENAI_API_KEY=sk-...
 from langchain_openai import ChatOpenAI
 
 llm = ChatOpenAI(
-    model="gpt-4o-mini",   # or "gpt-4o", "gpt-4-turbo", etc.
-    temperature=0,         # 0 = deterministic, 1 = creative
-    max_tokens=None,       # None = model default
+    model="gpt-4o-mini",  # or "gpt-4o", "gpt-4-turbo", etc.
+    temperature=0,  # 0 = deterministic, 1 = creative
+    max_tokens=None,  # None = model default
 )
 ```
 
@@ -42,10 +42,12 @@ llm = ChatOpenAI(
 ```python
 from langchain_core.messages import HumanMessage, SystemMessage
 
-response = llm.invoke([
-    SystemMessage(content="You are a helpful assistant."),
-    HumanMessage(content="What is RAG?"),
-])
+response = llm.invoke(
+    [
+        SystemMessage(content="You are a helpful assistant."),
+        HumanMessage(content="What is RAG?"),
+    ]
+)
 
 print(response.content)  # str
 ```
@@ -85,7 +87,7 @@ Converts text into dense vector representations for similarity search.
 from langchain_openai import OpenAIEmbeddings
 
 embeddings = OpenAIEmbeddings(
-    model="text-embedding-3-small",   # or "text-embedding-3-large" (higher quality)
+    model="text-embedding-3-small",  # or "text-embedding-3-large" (higher quality)
     # dimensions=512,                 # optional: reduce output dimensions
 )
 ```

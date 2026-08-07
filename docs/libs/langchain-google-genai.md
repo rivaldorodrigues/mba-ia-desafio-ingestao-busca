@@ -31,7 +31,7 @@ GOOGLE_API_KEY=AIza...
 from langchain_google_genai import ChatGoogleGenerativeAI
 
 llm = ChatGoogleGenerativeAI(
-    model="gemini-2.0-flash",     # or "gemini-1.5-pro", "gemini-2.5-pro"
+    model="gemini-2.0-flash",  # or "gemini-1.5-pro", "gemini-2.5-pro"
     temperature=0,
     # google_api_key="AIza...",   # optional: override env var
 )
@@ -42,10 +42,12 @@ llm = ChatGoogleGenerativeAI(
 ```python
 from langchain_core.messages import HumanMessage, SystemMessage
 
-response = llm.invoke([
-    SystemMessage(content="You are a helpful assistant."),
-    HumanMessage(content="What is RAG?"),
-])
+response = llm.invoke(
+    [
+        SystemMessage(content="You are a helpful assistant."),
+        HumanMessage(content="What is RAG?"),
+    ]
+)
 
 print(response.content)  # str
 ```
@@ -56,9 +58,7 @@ print(response.content)  # str
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-prompt = ChatPromptTemplate.from_template(
-    "Answer based on the context:\n{context}\n\nQuestion: {question}"
-)
+prompt = ChatPromptTemplate.from_template("Answer based on the context:\n{context}\n\nQuestion: {question}")
 chain = prompt | llm | StrOutputParser()
 
 answer = chain.invoke({"context": "...", "question": "What is this about?"})
@@ -97,7 +97,7 @@ Converts text into dense vector representations using Google's embedding models.
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
 embeddings = GoogleGenerativeAIEmbeddings(
-    model="models/gemini-embedding-001",   # current stable model
+    model="models/gemini-embedding-001",  # current stable model
     # task_type="retrieval_document",      # optional: tune for document embedding
     # output_dimensionality=768,           # optional: reduce output size
 )
@@ -134,7 +134,7 @@ vectors = embeddings.embed_documents(texts)
 # embed_documents and embed_query both accept output_dimensionality
 vectors = embeddings.embed_documents(
     texts,
-    output_dimensionality=512,   # override instance default for this call
+    output_dimensionality=512,  # override instance default for this call
 )
 ```
 

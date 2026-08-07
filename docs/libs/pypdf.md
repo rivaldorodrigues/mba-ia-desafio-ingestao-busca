@@ -51,9 +51,9 @@ print(full_text)
 
 ```python
 page.extract_text(
-    orientations=(0, 90, 180, 270),   # which text orientations to include
-    space_width=200.0,                 # default space width when not found in font
-    extraction_mode="plain",           # "plain" (default) or "layout"
+    orientations=(0, 90, 180, 270),  # which text orientations to include
+    space_width=200.0,  # default space width when not found in font
+    extraction_mode="plain",  # "plain" (default) or "layout"
 )
 ```
 
@@ -105,10 +105,12 @@ page = reader.pages[0]
 
 parts = []
 
+
 def visitor_body(text, cm, tm, font_dict, font_size):
     y = tm[5]  # vertical position
-    if 50 < y < 720:   # skip header (y > 720) and footer (y < 50)
+    if 50 < y < 720:  # skip header (y > 720) and footer (y < 50)
         parts.append(text)
+
 
 page.extract_text(visitor_text=visitor_body)
 body_text = "".join(parts)

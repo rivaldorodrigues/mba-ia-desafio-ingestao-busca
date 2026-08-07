@@ -28,10 +28,12 @@ formatted = prompt.format(context="Paris is the capital of France.", question="W
 ```python
 from langchain_core.prompts import ChatPromptTemplate
 
-prompt = ChatPromptTemplate.from_messages([
-    ("system", "You are a helpful assistant. Use this context:\n{context}"),
-    ("human", "{question}"),
-])
+prompt = ChatPromptTemplate.from_messages(
+    [
+        ("system", "You are a helpful assistant. Use this context:\n{context}"),
+        ("human", "{question}"),
+    ]
+)
 
 # Format into messages list
 messages = prompt.format_messages(context="...", question="What is RAG?")
@@ -84,8 +86,8 @@ Splits text hierarchically by paragraphs → sentences → words. The recommende
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=1000,     # max characters per chunk
-    chunk_overlap=200,   # characters overlapping between consecutive chunks
+    chunk_size=1000,  # max characters per chunk
+    chunk_overlap=200,  # characters overlapping between consecutive chunks
     length_function=len,
 )
 
@@ -124,19 +126,14 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
+
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
-prompt = ChatPromptTemplate.from_template(
-    "Answer based on the context:\n{context}\n\nQuestion: {question}"
-)
 
-rag_chain = (
-    {"context": retriever | format_docs, "question": RunnablePassthrough()}
-    | prompt
-    | llm
-    | StrOutputParser()
-)
+prompt = ChatPromptTemplate.from_template("Answer based on the context:\n{context}\n\nQuestion: {question}")
+
+rag_chain = {"context": retriever | format_docs, "question": RunnablePassthrough()} | prompt | llm | StrOutputParser()
 
 answer = rag_chain.invoke("What is LangChain?")
 ```
@@ -200,13 +197,10 @@ vectorstore = PGVector.from_documents(
 # 4. Retrieve + Generate
 retriever = vectorstore.as_retriever(search_kwargs={"k": 4})
 llm = ChatOpenAI(model="gpt-4o-mini")
-prompt = ChatPromptTemplate.from_template(
-    "Context:\n{context}\n\nQuestion: {question}"
-)
+prompt = ChatPromptTemplate.from_template("Context:\n{context}\n\nQuestion: {question}")
 
 chain = (
-    {"context": retriever | (lambda docs: "\n\n".join(d.page_content for d in docs)),
-     "question": RunnablePassthrough()}
+    {"context": retriever | (lambda docs: "\n\n".join(d.page_content for d in docs)), "question": RunnablePassthrough()}
     | prompt
     | llm
     | StrOutputParser()

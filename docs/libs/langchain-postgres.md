@@ -42,11 +42,11 @@ CONNECTION_STRING = "postgresql+psycopg://langchain:langchain@localhost:6024/lan
 embeddings = OpenAIEmbeddings()
 
 vectorstore = PGVector.from_documents(
-    documents=docs,           # list[Document]
+    documents=docs,  # list[Document]
     embedding=embeddings,
     collection_name="my_docs",
     connection=CONNECTION_STRING,
-    use_jsonb=True,           # recommended for metadata filtering
+    use_jsonb=True,  # recommended for metadata filtering
 )
 ```
 
@@ -86,7 +86,7 @@ results = vectorstore.similarity_search(
 
 ```python
 retriever = vectorstore.as_retriever(
-    search_type="similarity",   # "similarity" | "mmr" | "similarity_score_threshold"
+    search_type="similarity",  # "similarity" | "mmr" | "similarity_score_threshold"
     search_kwargs={"k": 4},
 )
 
