@@ -67,11 +67,13 @@ src/chat.py    → CLI loop → calls search_prompt() → streams answer
 | Variable | Description |
 |---|---|
 | `GOOGLE_API_KEY` | Gemini API key |
-| `GOOGLE_EMBEDDING_MODEL` | Default: `models/embedding-001` |
+| `GOOGLE_EMBEDDING_MODEL` | Default: `models/gemini-embedding-001` |
+| `GOOGLE_LLM_MODEL` | Default: `gemini-2.0-flash` |
 | `OPENAI_API_KEY` | OpenAI API key |
 | `OPENAI_EMBEDDING_MODEL` | Default: `text-embedding-3-small` |
+| `OPENAI_LLM_MODEL` | Default: `gpt-4o-mini` |
 | `DATABASE_URL` | Full connection string (`postgresql+psycopg://...`) |
-| `PG_VECTOR_COLLECTION_NAME` | Collection name in pgVector |
+| `PG_VECTOR_COLLECTION_NAME` | Collection name in pgVector (default: `default_collection`) |
 | `PDF_PATH` | Path to the PDF to ingest (e.g. `assets/document.pdf`) |
 
 ---
@@ -82,7 +84,7 @@ Curated docs for every dependency are in [`docs/libs/`](./docs/libs/):
 
 | File | Covers |
 |---|---|
-| [`langchain.md`](./docs/libs/langchain.md) | PromptTemplate, LCEL chains, document loaders, text splitters, RAG pipelines |
+| [`langchain.md`](./docs/libs/langchain.md) | PromptTemplate, LCEL chains, text splitters, RAG pipelines |
 | [`langchain-postgres.md`](./docs/libs/langchain-postgres.md) | PGVector (legacy sync), PGVectorStore (async), PostgresChatMessageHistory |
 | [`langchain-openai.md`](./docs/libs/langchain-openai.md) | ChatOpenAI, OpenAIEmbeddings |
 | [`langchain-google-genai.md`](./docs/libs/langchain-google-genai.md) | ChatGoogleGenerativeAI, GoogleGenerativeAIEmbeddings |

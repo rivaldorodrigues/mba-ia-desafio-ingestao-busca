@@ -10,7 +10,7 @@ A RAG (Retrieval-Augmented Generation) system that reads a PDF file, stores its 
 - **LangChain** — orchestration of the ingestion and search pipeline
 - **PostgreSQL + pgVector** — vector database for storage and similarity search
 - **Docker & Docker Compose** — database execution
-- **OpenAI** (`text-embedding-3-small` + `gpt-4o-mini`) or **Gemini** (`models/embedding-001` + `gemini-2.5-flash-lite`)
+- **OpenAI** (`text-embedding-3-small` + `gpt-4o-mini`) or **Gemini** (`models/gemini-embedding-001` + `gemini-2.0-flash`)
 
 ---
 
@@ -62,16 +62,18 @@ Edit `.env` with your credentials:
 # OpenAI (choose OpenAI or Gemini)
 OPENAI_API_KEY=sk-...
 OPENAI_EMBEDDING_MODEL=text-embedding-3-small
+OPENAI_LLM_MODEL=gpt-4o-mini
 
 # Gemini (alternative to OpenAI)
 GOOGLE_API_KEY=AI...
-GOOGLE_EMBEDDING_MODEL=models/embedding-001
+GOOGLE_EMBEDDING_MODEL=models/gemini-embedding-001
+GOOGLE_LLM_MODEL=gemini-2.0-flash
 
 # Database
 DATABASE_URL=postgresql+psycopg://postgres:postgres@localhost:5432/rag
 
 # PGVector settings
-PG_VECTOR_COLLECTION_NAME=documents
+PG_VECTOR_COLLECTION_NAME=default_collection
 
 # Path to the PDF to be ingested
 PDF_PATH=assets/document.pdf

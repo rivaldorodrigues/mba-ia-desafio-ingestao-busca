@@ -87,6 +87,7 @@ langchain-core==1.5.1
     #   langchain-google-genai
     #   langchain-openai
     #   langchain-postgres
+    #   langchain-text-splitters
     #   langgraph
     #   langgraph-checkpoint
     #   langgraph-prebuilt
@@ -102,6 +103,8 @@ langchain-protocol==0.0.18
     # via
     #   langchain-core
     #   langgraph-sdk
+langchain-text-splitters==1.1.2
+    # via mba-ia-desafio-ingestao-busca
 langgraph==1.2.9
     # via langchain
 langgraph-checkpoint==4.1.1

@@ -1,11 +1,12 @@
 import os
 
 from dotenv import load_dotenv
-from langchain_community.document_loaders import PyPDFLoader
+from langchain_core.documents import Document
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from langchain_openai import OpenAIEmbeddings
 from langchain_postgres.vectorstores import PGVector
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from pypdf import PdfReader
 
 load_dotenv()
 
@@ -34,8 +35,14 @@ def ingest_pdf() -> None:
 
     # 1. Load PDF
     print(f"Carregando PDF: {PDF_PATH}")
-    loader = PyPDFLoader(PDF_PATH)
-    documents = loader.load()
+    reader = PdfReader(PDF_PATH)
+    documents = [
+        Document(
+            page_content=page.extract_text() or "",
+            metadata={"source": PDF_PATH, "page": i},
+        )
+        for i, page in enumerate(reader.pages)
+    ]
     print(f"PDF carregado: {len(documents)} página(s)")
 
     # 2. Split into chunks
